@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Social Media with Task Assignment</title>
+  <style>
+    /* Add some basic styles */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .post {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Social Media</h1>
+    <form id="postForm">
+      <label for="content">Post:</label>
+      <textarea id="content" name="content"></textarea><br><br>
+
+      <label for="assignee">Assign Task To:</label>
+      <select id="assignee" name="assignee">
+        <option value="">Select User</option>
+        <option value="user1">User 1</option>
+        <option value="user2">User 2</option>
+        <option value="user3">User 3</option>
+      </select><br><br>
+
+      <button type="submit">Post</button>
+    </form>
+
+    <div id="posts"></div>
+  </div>
+
+  <script>
+    // Store posts and tasks
+    var posts = [];
+
+    // Function to handle the form submission
+    function addPost(event) {
+      event.preventDefault();
+
+      // Get the form values
+      var content = document.getElementById('content').value;
+      var assignee = document.getElementById('assignee').value;
+
+      // Create a new post object
+      var post = {
+        content: content,
+        assignee: assignee
+      };
+
+      // Add the post to the posts array
+      posts.push(post);
+
+      // Reset the form values
+      document.getElementById('postForm').reset();
+
+      // Render the posts
+      renderPosts();
+    }
+
+    // Function to render the posts
+    function renderPosts() {
+      var postsContainer = document.getElementById('posts');
+      postsContainer.innerHTML = '';
+
+      // Iterate over the posts array and create post elements
+      for (var i = 0; i < posts.length; i++) {
+        var post = posts[i];
+
+        // Create a post element
+        var postElement = document.createElement('div');
+        postElement.className = 'post';
+
+        // Add the post content
+        var contentElement = document.createElement('p');
+        contentElement.textContent = post.content;
+        postElement.appendChild(contentElement);
+
+        // Add the assigned user
+        var assigneeElement = document.createElement('p');
+        assigneeElement.textContent = 'Assigned To: ' + post.assignee;
+        postElement.appendChild(assigneeElement);
+
+        // Add the post element to the posts container
+        postsContainer.appendChild(postElement);
+      }
+    }
+
+    // Add event listener to the form submission
+    document.getElementById('postForm').addEventListener('submit', addPost);
+  </script>
+</body>
+</html>
